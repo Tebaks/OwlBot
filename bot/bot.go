@@ -107,7 +107,7 @@ func channelHandler(s *discordgo.Session, v *discordgo.VoiceStateUpdate) {
 		usr, _ := s.User(v.UserID)
 
 		channelData := discordgo.GuildChannelCreateData{Name: "Room " + usr.Username, Type: discordgo.ChannelTypeGuildVoice}
-		_, _ = s.ChannelMessageSend("743455466213867540", "Kanal oluşturuluyor")
+
 		chn, _ := s.GuildChannelCreateComplex(v.GuildID, channelData)
 
 		tempChannels = append(tempChannels, chn.ID)
@@ -117,10 +117,8 @@ func channelHandler(s *discordgo.Session, v *discordgo.VoiceStateUpdate) {
 	} else {
 		if v.ChannelID == "" {
 			userChannel = deleteUser(userChannel, v.UserID)
-			fmt.Println(userChannel)
 		} else {
 			userChannel = setUserChannel(userChannel, v.UserID, v.ChannelID)
-			fmt.Println(userChannel)
 		}
 		deleteEmptyChannels(s)
 	}
